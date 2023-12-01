@@ -9,7 +9,9 @@ const Creator = () => {
             <div className="mt-1">
                 Our <a
                 className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                href="https://t.me/enigma_hub_official" target="_blank">Telegram</a>
+                href="https://t.me/enigma_hub_official"
+                target="_blank"
+                rel="noreferrer">Telegram</a>
             </div>
         </strong>
     );
