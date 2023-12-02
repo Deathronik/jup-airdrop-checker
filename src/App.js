@@ -14,6 +14,8 @@ function App() {
         const walletsStats = []
 
         for (const wallet of wallets) {
+            if (wallet === "") continue
+
             const response = await fetch(`https://jup-airdrop.zhen8558.workers.dev/allocation/${wallet}`, {
                 "headers": {
                     "sec-ch-ua": "\"Google Chrome\";v=\"119\", \"Chromium\";v=\"119\", \"Not?A_Brand\";v=\"24\"",
@@ -39,7 +41,7 @@ function App() {
             if (responseJSON) {
                 walletsStats.push({
                     wallet: wallet,
-                    amount: responseJSON.score,
+                    amount: responseJSON.tokens_final,
                     eligible: true
                 })
             } else {
