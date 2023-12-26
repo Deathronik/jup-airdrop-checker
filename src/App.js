@@ -7,11 +7,13 @@ import Creator from "./Components/Creator/Creator";
 function App() {
     const [wallets, setWallets] = useState([])
     const [results, setResults] = useState([])
+    const [total, setTotal] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
 
     const onCLickCheckHandler = async () => {
         setIsLoading(true)
         const walletsStats = []
+        let total = 0
 
         for (const wallet of wallets) {
             if (wallet === "") continue
@@ -30,13 +32,7 @@ function App() {
                 "credentials": "omit"
             });
 
-            let responseJSON = null
-
-            try {
-                responseJSON = await response.json()
-            } catch (e) {
-
-            }
+            const responseJSON = await response.json().catch(() => null);
 
             if (responseJSON) {
                 walletsStats.push({
@@ -44,6 +40,7 @@ function App() {
                     amount: responseJSON.tokens_final,
                     eligible: true
                 })
+                total += Number(responseJSON.tokens_final)
             } else {
                 walletsStats.push({
                     wallet: wallet,
@@ -53,6 +50,7 @@ function App() {
             }
         }
 
+        setTotal(total)
         setResults(walletsStats)
         setIsLoading(false)
     }
@@ -74,6 +72,7 @@ function App() {
             {results.length !== 0 && (
                 <div>
                     <h5 className="mt-3">Results</h5>
+                    <h5 className="mb-3">{`Total: ${total} $JUP`}</h5>
                     <Table striped bordered hover>
                         <thead>
                         <tr>
